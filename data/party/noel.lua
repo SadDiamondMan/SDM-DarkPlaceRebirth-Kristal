@@ -146,6 +146,10 @@ function character:init()
     self.tv_name = "NUL"
 
     self.can_lead = false
+
+    self.element = {
+        "NIL"
+    }
 end
 
 function character:getTitle()

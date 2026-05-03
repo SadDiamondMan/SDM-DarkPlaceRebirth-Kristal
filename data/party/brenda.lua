@@ -70,6 +70,11 @@ function character:init()
     self.gameover_message = nil
 	
 	self.graduate = true
+
+    self.element = {
+        "CAT",
+        "FIRE"
+    }
 end
 
 function character:onLevelUp(level)

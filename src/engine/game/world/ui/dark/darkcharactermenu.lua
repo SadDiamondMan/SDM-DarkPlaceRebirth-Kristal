@@ -205,7 +205,20 @@ end
 
 
 function DarkCharacterMenu:getElement(party) -- added before elements were introduced properly
-    if party.element then return party.element end
+    if party.element then
+		if #party.element == 1 then
+			return party.element[1]
+		else
+			local element = ""
+			for i, v in ipairs(party.element) do
+				element = element..v
+				if i < #party.element then
+					element = element.."/"
+				end
+			end
+			return element
+		end
+	end
     return "???"
 end
 
@@ -221,11 +234,11 @@ function DarkCharacterMenu:drawStats()
 		--party:CharacterMenuDraw()
 	else
 		local x = 330
-    --278, 246
-
-   
-	love.graphics.print("ELEMENT: "..self:getElement(party), x, 374)
-                love.graphics.print("LEVEL: "..party.level, x, 278)
+    	--278, 246
+		local elem_width = self.font:getWidth(self:getElement(party)) <= 120 and 1 or 120/self.font:getWidth(self:getElement(party))
+		love.graphics.print("ELEMENT: ", x, 374)
+		love.graphics.print(self:getElement(party), x + 112, 374, 0, elem_width, 1)
+        love.graphics.print("LEVEL: "..party.level, x, 278)
 		love.graphics.print("LOVE: "..party.love, x, 310)
 		love.graphics.print("KILLS: "..party.kills, x, 342)
 
@@ -240,9 +253,9 @@ function DarkCharacterMenu:drawStats()
 		love.graphics.print("MAG: "..party.stats["magic"], x, 342) --374 --342
 
 
-                Draw.draw(Assets.getTexture("ui/menu/icon/sword"), x - 24, 278 + 6, 0, 2, 2)
-                Draw.draw(Assets.getTexture("ui/menu/icon/armor"), x - 24, 310 + 6, 0, 2, 2)
-                Draw.draw(Assets.getTexture("ui/menu/icon/magic"), x - 24, 342 + 6, 0, 2, 2)
+        Draw.draw(Assets.getTexture("ui/menu/icon/sword"), x - 24, 278 + 6, 0, 2, 2)
+        Draw.draw(Assets.getTexture("ui/menu/icon/armor"), x - 24, 310 + 6, 0, 2, 2)
+        Draw.draw(Assets.getTexture("ui/menu/icon/magic"), x - 24, 342 + 6, 0, 2, 2)
 	end
 end
 

@@ -125,6 +125,11 @@ function character:init()
 	self.graduate = true
 	
 	self.tv_name = "GAY"
+
+	self.element = {
+		"FIRE",
+		"MORON"
+	}
 end
 
 function character:onLevelUp(level)

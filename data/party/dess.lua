@@ -140,6 +140,12 @@ im pretty sure this is the case and you can trust me because i made wikihow
     self.tv_name = "DESS"
 
     self.can_lead = true
+
+    self.element = {
+        "DARK",
+        "STAR",
+        "WEED"
+    }
 end
 
 function character:onArc()

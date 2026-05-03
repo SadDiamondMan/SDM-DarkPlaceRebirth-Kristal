@@ -181,6 +181,11 @@ function character:init()
         "This is not\nyour fate...!",
         "Please,[wait:5]\ndon't give up!",
     }
+
+    self.element = {
+        "DARK",
+        "MAGIC"
+    }
 end
 
 function character:getTitle()

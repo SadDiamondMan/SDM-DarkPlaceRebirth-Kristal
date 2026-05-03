@@ -118,6 +118,11 @@ function character:init()
         ["boldness"] = (Game.chapter >= 2 and 100 or -12),
         ["weird"] = false
     }
+
+    self.element = {
+        "ICE",
+        "HOLY"
+    }
 end
 
 function character:getTitle()

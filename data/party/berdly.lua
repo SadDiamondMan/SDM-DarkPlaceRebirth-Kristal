@@ -116,6 +116,11 @@ function character:init()
     self.flags = {
         ["serious"] = false,
     }
+
+    self.element = {
+        "ELEC",
+        "WIND"
+    }
 end
 
 function character:getGameOverMessage(main)

@@ -93,6 +93,17 @@ function character:init()
     
     self.default_spell_resource = "tension"
     self.uses_mana = false
+
+    if Game:getFlag("marcy_joined", false) then
+        self.element = {
+            "ELEC",
+            "FIRE"
+        }
+    else
+        self.element = {
+            "ELEC"
+        }
+    end
 end
 
 function character:usesMana()

@@ -196,6 +196,11 @@ function character:init()
 	self.rage_counter = 0
 
 	self.tv_name = "ASS"
+
+    self.element = {
+        "RUDE",
+        "FIGHT"
+    }
 end
 
 function character:getTitle()

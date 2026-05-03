@@ -107,6 +107,11 @@ function character:init()
     self.gameover_message = nil
 	
 	self.tv_name = "OSW"
+
+    self.element = {
+        "STAR",
+        "WALKER"
+    }
 end
 
 function character:onLevelUp(level)

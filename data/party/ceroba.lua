@@ -91,6 +91,11 @@ function character:init()
         "Hey,[wait:5] get up,[wait:5]\nyou hear me?!",
         "I can't lose\nanother one..."
     }
+
+    self.element = {
+        "FLOWER",
+        "FIRE"
+    }
 end
 
 function character:onLevelUp(level)
