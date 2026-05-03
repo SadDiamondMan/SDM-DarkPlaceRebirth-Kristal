@@ -57,7 +57,7 @@ function MainMenuTitle:onEnter(old_state)
 
     self.continue_text:setText(self.continue_text.text)
     self.continue_text.alpha = 1
-    MainMenu.stage:addChild(self.continue_text)
+    self.continue_text:setParent(MainMenu.stage)
 
     self.debounce = false
 end
