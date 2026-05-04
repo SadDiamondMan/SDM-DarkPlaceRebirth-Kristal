@@ -106,6 +106,14 @@ function character:init()
     end
 end
 
+function character:getElements()
+    local e = {"ELEC"}
+    if Game:getFlag("marcy_joined") then
+        table.insert(e, "FIRE")
+    end
+    return e
+end
+
 function character:usesMana()
     if Game:getFlag("jamm_skill_16") then   -- for testing purposes
         return true

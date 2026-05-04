@@ -59,6 +59,9 @@ function PartyMember:init()
 
     -- Extended title for party selection menu for the dev diner.
     self.title_extended = nil
+    
+    -- Party member's elements
+    self.element = {}
 end
 
 function PartyMember:getStarmanTheme() return "default" end
@@ -835,13 +838,16 @@ function PartyMember:autoHealSwoonAmount()
     return 0
 end
 
-
 function PartyMember:getTitleExtended()
     return self.title_extended or self:getTitle()
 end
 
 function PartyMember:CharacterMenuDraw()
 
+end
+
+function PartyMember:getElements()
+    return self.element
 end
 
 return PartyMember

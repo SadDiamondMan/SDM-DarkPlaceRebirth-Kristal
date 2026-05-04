@@ -203,14 +203,14 @@ function DarkCharacterMenu:draw()
 	end
 end
 
-
 function DarkCharacterMenu:getElement(party) -- added before elements were introduced properly
-    if party.element then
-		if #party.element == 1 then
-			return party.element[1]
+    local elements = party:getElements()
+    if elements then
+		if #elements == 1 then
+			return elements[1]
 		else
 			local element = ""
-			for i, v in ipairs(party.element) do
+			for i, v in ipairs(elements) do
 				element = element..v
 				if i < #party.element then
 					element = element.."/"
