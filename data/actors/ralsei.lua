@@ -326,27 +326,8 @@ function actor:initChapter2()
     }
 
     self.menu_anim = "pose"
-end
 
-function actor:onWorldDraw(chara)
-    if Kristal.Config["runAnimations"] then
-        local player = Game.world.player
-
-        if Game.world.cutscene and not self.cut then
-            self.default = "walk"
-            chara:resetSprite()
-            self.cut = true
-        elseif not Game.world.cutscene then
-            if self.cut then self.cut = nil end
-            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene then
-                self.default = "run" --({"run", "float"})[math.random(2)]
-                chara:resetSprite()
-            elseif self.default ~= "walk" and player.run_timer == 0 then
-                self.default = "walk"
-                chara:resetSprite()
-            end
-        end
-    end
+    self.running_sprites = true
 end
 
 return actor
