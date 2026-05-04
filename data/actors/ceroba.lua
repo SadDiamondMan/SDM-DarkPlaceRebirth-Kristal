@@ -24,10 +24,10 @@ function actor:init()
     self.can_blush = false
 
     self.talk_sprites = {
-        ["talk/down"] = 0.2,
-        ["talk/right"] = 0.2,
-        ["talk/left"] = 0.2,
-        ["talk/up"] = 0.2
+        ["talk/down"] = 1/6,
+        ["talk/right"] = 1/6,
+        ["talk/left"] = 1/6,
+        ["talk/up"] = 1/6
     }
 
     self.animations = {
