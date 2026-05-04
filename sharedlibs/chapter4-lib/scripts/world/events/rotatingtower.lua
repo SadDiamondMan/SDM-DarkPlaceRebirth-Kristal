@@ -222,7 +222,7 @@ end
 
 function RotatingTower:drawGridTile(layer, xid, id, x, y, col, pos, tileset, gw, gh, flip_x, flip_y, flip_diag)
     local draw_id = tileset:getDrawTile(id)
-    local w, h = self.tile_width_fine, self.tile_height_fine
+	local w, h = tileset:getTileSize(draw_id)
 
     x, y = x or 0, y or 0
     gw, gh = gw or w, gh or h
@@ -242,7 +242,7 @@ function RotatingTower:drawGridTile(layer, xid, id, x, y, col, pos, tileset, gw,
             sy = sx
         end
     end
-	sx = sx * ((-xid.xscale) / self.tile_width_fine)
+	sx = sx * ((-xid.xscale) / gw)
 
     local ox, oy = (w * sx) / 2, gh - (h * sy) / 2
 
