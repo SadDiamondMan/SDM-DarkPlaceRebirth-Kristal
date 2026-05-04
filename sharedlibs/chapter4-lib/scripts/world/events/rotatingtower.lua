@@ -222,7 +222,7 @@ end
 
 function RotatingTower:drawGridTile(layer, xid, id, x, y, col, pos, tileset, gw, gh, flip_x, flip_y, flip_diag)
     local draw_id = tileset:getDrawTile(id)
-    local w, h = self.tile_width_fine, self.tile_height_fine
+	local w, h = tileset:getTileSize(draw_id)
 
     x, y = x or 0, y or 0
     gw, gh = gw or w, gh or h
@@ -237,12 +237,12 @@ function RotatingTower:drawGridTile(layer, xid, id, x, y, col, pos, tileset, gw,
     if tileset.fill_grid and gw and gh and (w ~= gw or h ~= gh) then
         sx = gw / w
         sy = gh / h
-        if self.preserve_aspect_fit then
+        if tileset.preserve_aspect_fit then
             sx = MathUtils.absMin(sx, sy)
             sy = sx
         end
     end
-	sx = sx * ((-xid.xscale) / self.tile_width_fine)
+	sx = sx * ((-xid.xscale) / gw)
 
     local ox, oy = (w * sx) / 2, gh - (h * sy) / 2
 
@@ -347,7 +347,7 @@ function RotatingTower:draw()
 						Draw.setColor(xid.color)
 						local xx = (self.tower_x - self.tower_xshake) + xid.x + (xid.xscale)
 						local yy = (self.tile_height_fine * ii) + self.tower_ystart + 10
-						self:drawGridTile(layer, xid, id, xx - cx, yy - cy, xid.color, pos, tileset, grid_w, grid_h, flip_x, flip_y, flip_diag)
+						self:drawGridTile(layer, xid, id, xx - cx, yy - cy, xid.color, pos, tileset, self.tile_width_fine, self.tile_height_fine, flip_x, flip_y, flip_diag)
 					end 
 				end
 			end
