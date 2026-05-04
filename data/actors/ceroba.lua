@@ -69,8 +69,8 @@ function actor:init()
     self.offsets = {
         -- Movement offsets
         ["talk/down"] = {-1, -1},
-        ["talk/right"] = {-2, -3},
-        ["talk/left"] = {2, -3},
+        ["talk/right"] = {-2, -2},
+        ["talk/left"] = {2, -2},
         ["talk/up"] = {-1, -1},
 
         ["walk/down"] = {-1, -1},
@@ -125,35 +125,10 @@ function actor:init()
     self.shiny_id = "ceroba"
 
     self.menu_anim = "cool"
-end
 
-function actor:onWorldDraw(chara)
-    if Kristal.Config["runAnimations"] then
-        local player = Game.world.player
+    self.running_sprites = true
 
-        local moving = false
-        local c, b = chara.x, chara.y
-        if c ~= self.l or b ~= self.ll then
-            moving = true
-        end
-
-        if Game.world.cutscene and not self.cut then
-            self.default = "walk"
-            chara:resetSprite()
-            self.cut = true
-        elseif not Game.world.cutscene then
-            if self.cut then self.cut = nil end
-            if player.run_timer > 0 and self.default == "walk" and not Game.world.cutscene and moving then
-                self.default = "run"
-                chara:resetSprite()
-            elseif self.default == "run" and (player.run_timer == 0 or moving == false) then
-                self.default = "walk"
-                chara:resetSprite()
-            end
-        end
-        self.l = chara.x
-        self.ll = chara.y
-    end
+    self.directional_talking = true
 end
 
 function actor:onTextSound()
