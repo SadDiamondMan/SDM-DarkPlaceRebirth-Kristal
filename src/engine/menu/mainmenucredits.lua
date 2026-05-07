@@ -51,16 +51,17 @@ function MainMenuCredits:init(menu)
                 { "GitHub Contributors", COLORS.silver },
                 "Dobby233Liu",
                 "Elioze",
+                "Eribetra",
                 "FireRainV",
                 "HUECYCLES",
                 "Hyperboid",
                 "isakube",
                 "J.A.R.U.",
-                "Lionmeow",
-                "Luna",
+                "Lionmeow"
             },
             {
                 { "GitHub Contributors", COLORS.silver },
+                "Luna",
                 "MaybeSamo",
                 "MCdeDaxia",
                 "MrOinky",
@@ -68,24 +69,23 @@ function MainMenuCredits:init(menu)
                 "Nextop",
                 "nightpool",
                 "prokube",
-                "Simbel",
-                "sjl057"
+                "rfrx"
             }
         },
         {
             "Kristal Engine",
             {
                 { "GitHub Contributors", COLORS.silver },
+                "Simbel",
+                "sjl057",
                 "skarph",
                 "SuperOfSrb2",
+                "SweetSylveon",
                 "TFLTV",
                 "TheSkerch",
                 "Verozity",
                 "WIL-TZY",
-                "YeetusSnoopy",
-                "",
-                "",
-                ""
+                "YeetusSnoopy"
             }
         },
         {

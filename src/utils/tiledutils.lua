@@ -14,7 +14,7 @@ function TiledUtils.parseColorProperty(property)
 
     local str = "#" .. string.sub(property, 4) -- Get the hex string without the alpha value
     local alpha = tonumber(string.sub(property, 2, 3), 16) / 255 -- Get the alpha value separately
-    local r, g, b, a = Utils.unpackColor(ColorUtils.hexToRGB(str))
+    local r, g, b, a = ColorUtils.unpackColor(ColorUtils.hexToRGB(str))
     return { r, g, b, a * (alpha or 1) }
 end
 
@@ -208,7 +208,7 @@ end
 
 ---
 --- Attempts to resolve a relative path from a Tiled export to a valid asset id, given it points to a path inside the
---- `target_dir` of the current mod.
+--- `target_dir` of the current project.
 ---
 --- Relative directories (`..`) of the asset path are resolved by starting from the `source_dir`, which should match the
 --- directory the Tiled data was exported to. Exporting to a different directory and copying/moving the exported data will

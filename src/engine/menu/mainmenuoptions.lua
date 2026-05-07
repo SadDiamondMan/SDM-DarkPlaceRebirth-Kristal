@@ -790,8 +790,6 @@ function MainMenuOptions:initializeOptions()
     )
 
     self:registerConfigOption("engine", "Skip Name Entry", "skipNameEntry")
-
-    self:registerConfigOption("engine", "Debug Hotkeys", "debug")
     self:registerConfigOption("engine", "Verbose Loader", "verboseLoader")
 
     self:registerOption("engine", "Loader Mode", function(x, y)

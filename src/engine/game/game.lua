@@ -131,7 +131,7 @@ function Game:enter(previous_state, save_id, save_name, fade)
 
     if next(DISCORD_RPC_PRESENCE) == nil then
         Kristal.setPresence({
-            state = Kristal.callEvent(KRISTAL_EVENT.getPresenceState) or ("Playing " .. (Kristal.getModOption("name") or "a mod")),
+            state = Kristal.callEvent(KRISTAL_EVENT.getPresenceState) or ("Playing " .. (Kristal.getModOption("name") or "a project")),
             details = Kristal.callEvent(KRISTAL_EVENT.getPresenceDetails),
             largeImageKey = Kristal.callEvent(KRISTAL_EVENT.getPresenceImage) or "logo",
             largeImageText = "Kristal v" .. tostring(Kristal.Version),
@@ -215,7 +215,7 @@ function Game:registerBuiltInEvents()
     registry:register("npc", function(data) return NPC(data.properties["actor"], getCharaX(data), getCharaY(data), data.properties) end)
     registry:register("enemy", function(data) return ChaserEnemy(data.properties["actor"], getCharaX(data), getCharaY(data), data.properties) end)
     registry:register("outline", function(data) return Outline(data.x, data.y, getRectData(data)) end)
-    registry:register("silhouette", function(data) return Silhouette(data.x, data.y, getRectData(data)) end)
+    registry:register("silhouette", function(data) return Silhouette(data.x, data.y, getRectData(data), data.properties) end)
     registry:register("slidearea", function(data) return SlideArea(data.x, data.y, getRectData(data), data.properties) end)
     registry:register("mirror", function(data) return MirrorArea(data.x, data.y, getRectData(data), data.properties) end)
     registry:register("chest", function(data) return TreasureChest(data.center_x, data.center_y, data.properties) end)
@@ -568,9 +568,9 @@ function Game:load(data, index, fade)
     end
 
     self.default_storage_slots = data.default_storage_slots or 0
-    -- Check if a mod is still using the deprecated "enableStorage" config
+    -- Check if a project is still using the deprecated "enableStorage" config
     if Game:getConfig("enableStorage") ~= nil then
-        Kristal.Console:warn("Using deprecated mod option 'enableStorage', switch to 'storageSlots' option instead")
+        Kristal.Console:warn("Using deprecated project option 'enableStorage', switch to 'storageSlots' option instead")
         if Game:getConfig("enableStorage") or self.default_storage_slots > 0 then
             self.default_storage_slots = 24
         else
@@ -1457,6 +1457,25 @@ function Game:onWheelMoved(x, y)
     Kristal.callEvent(KRISTAL_EVENT.onWheelMoved, x, y)
 end
 
+--- Responsible for drawing the "Developer Mode Enabled" warning in the top right of the screen when developer mode is forcibly enabled.
+function Game:drawDevWarning()
+    if Kristal.shouldDisplayDevWarning() then
+        love.graphics.push()
+
+        local small_font = Assets.getFont("main", 16)
+        love.graphics.setFont(small_font)
+        local notice = "Developer Mode Enabled"
+        Draw.setColor(0, 0, 0, 1)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 5, 4)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 3, 4)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 4, 3)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 4, 5)
+        Draw.setColor(1, 1, 1, 0.75)
+        love.graphics.print(notice, SCREEN_WIDTH - small_font:getWidth(notice) - 4, 4)
+        love.graphics.pop()
+    end
+end
+
 function Game:draw()
     love.graphics.clear(0, 0, 0, 1)
     love.graphics.push()
@@ -1471,6 +1490,8 @@ function Game:draw()
     love.graphics.push()
     Kristal.callEvent(KRISTAL_EVENT.postDraw)
     love.graphics.pop()
+
+    self:drawDevWarning()
 end
 
 ---@param ignore_light? boolean -- if you still want some stats etc. despite being in LW

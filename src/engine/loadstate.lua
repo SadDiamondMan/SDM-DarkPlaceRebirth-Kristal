@@ -126,7 +126,7 @@ function Loading:update()
             if not Kristal.loadMod("dpr_main", 666, saveData.name) then
                 error("Failed to load dpr_main")
             end
-        elseif Kristal.Args["test"] then
+        elseif Kristal.Args["test"] and (not RELEASE_MODE) then
             Kristal.setState("Testing")
         elseif AUTO_MOD_START and TARGET_MOD then
             if not Kristal.loadMod(TARGET_MOD) then
