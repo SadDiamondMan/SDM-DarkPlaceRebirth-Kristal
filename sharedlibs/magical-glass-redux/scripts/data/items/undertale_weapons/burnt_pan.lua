@@ -42,7 +42,7 @@ function item:init()
     self.light_bolt_direction = "left"
     
     self.bolt_count = 4
-    self.multibolt_variance = {{50, 75}}
+    self.multibolt_variance = {{40, 60}}
 
     self.attack_sound = "frypan"
 end
@@ -72,9 +72,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
     if crit then
         if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-            sprite:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
+            sprite:setColor(TableUtils.lerp(COLORS.white, COLORS.yellow, 0.5))
         else
-            sprite:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+            sprite:setColor(TableUtils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
         end
         Assets.stopAndPlaySound("saber3")
     end
@@ -92,9 +92,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
         star.color = {battler.chara:getLightMultiboltAttackColor()}
         if crit then
             if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-                star:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
+                star:setColor(TableUtils.lerp(COLORS.white, COLORS.yellow, 0.5))
             else
-                star:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+                star:setColor(TableUtils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
             end
         end
         enemy.parent:addChild(star)

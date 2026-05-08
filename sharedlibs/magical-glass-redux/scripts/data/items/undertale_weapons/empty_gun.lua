@@ -42,12 +42,12 @@ function item:init()
     self.light_bolt_speed = 15
     self.light_bolt_speed_variance = 0
     self.light_bolt_start = 120
-    self.light_bolt_miss_threshold = 3
+    self.light_bolt_miss_threshold = 2
     self.light_multibolt_variance = {{180, 210, 240}, {300, 330, 360}, {400, 430, 460}}
     self.light_bolt_direction = "right"
     
     self.bolt_count = 4
-    self.multibolt_variance = {{40, 70}}
+    self.multibolt_variance = {{40, 60}}
 
     self.attack_sound = "gunshot"
 end
@@ -73,9 +73,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
     if crit then
         if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-            sprite:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
+            sprite:setColor(TableUtils.lerp(COLORS.white, COLORS.yellow, 0.5))
         else
-            sprite:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+            sprite:setColor(TableUtils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
         end
     end
 
@@ -93,6 +93,7 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             star.star_grav = -2
             star.star_ang = 20
             star.star_size = 0.5
+            star.removable = false
             star.rotation = math.rad(20 * i)
             star.visible = false
             local relative_pos_x, relative_pos_y = enemy:getRelativePos((enemy.width / 2) - (#Game.battle.attackers - 1) * 5 / 2 + (TableUtils.getIndex(Game.battle.attackers, battler) - 1) * 5, (enemy.height / 2))
@@ -103,9 +104,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             star.color = {battler.chara:getLightMultiboltAttackColor()}
             if crit then
                 if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-                    star:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
+                    star:setColor(TableUtils.lerp(COLORS.white, COLORS.yellow, 0.5))
                 else
-                    star:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+                    star:setColor(TableUtils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
                 end
                 Assets.stopAndPlaySound("saber3")
             end
@@ -116,8 +117,8 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
             star:play(4/30, true)
         end
 
-        Game.battle.timer:during(1, function()
-            for _,star in ipairs(stars) do
+        Game.battle.timer:doWhile(function() return #stars > 0 end, function()
+            for i, star in ipairs(stars) do
                 star.visible = true
                 star.siner = star.siner + 15 * DTMULT
 
@@ -139,9 +140,12 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
                 star:setScale(star.star_size)
 
-                if star.star_sine_amt <= 0.5 then
+                if star.star_sine_amt > 0.5 then
+                    star.removable = true
+                elseif star.removable then
                     star:remove()
                     TableUtils.removeValue(enemy.dmg_sprites, star)
+                    stars[i] = nil
                 end
             end
         end)
@@ -164,13 +168,13 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
     
             if crit then
                 if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-                    ring:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
+                    ring:setColor(TableUtils.lerp(COLORS.white, COLORS.yellow, 0.5))
                 else
-                    ring:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+                    ring:setColor(TableUtils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
                 end
             end
     
-            Game.battle.timer:during(1, function()
+            Game.battle.timer:doWhile(function() return ring end, function()
                 ring.alpha = ring_opacity
     
                 if ring_form == false then
@@ -184,13 +188,16 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
                 if ring_form == true then
                     ring_opacity = ring_opacity - 0.2 * DTMULT
                     ring_size = ring_size - 0.3 * DTMULT
-                    if ring.alpha < 0.1 then
-                        ring:remove()
-                        TableUtils.removeValue(enemy.dmg_sprites, ring)
-                    end
+
                 end
-    
+                
                 ring:setScale(ring_size)
+                
+                if ring.alpha < 0.1 then
+                    ring:remove()
+                    TableUtils.removeValue(enemy.dmg_sprites, ring)
+                    ring = nil
+                end
             end)
         end, 4)
     end)

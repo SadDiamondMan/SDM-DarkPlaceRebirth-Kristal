@@ -426,9 +426,9 @@ function PartyMember:getLightPortrait() return self.lw_portrait end
 -- Main Color
 function PartyMember:getColor()
     if Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") == true and Game:isLight() and Game.battle and not Game.battle.light then
-        return Utils.unpackColor(MG_PALETTE["light_world_dark_battle_color"])
+        return ColorUtils.unpackColor(MG_PALETTE["light_world_dark_battle_color"])
     elseif self.light_color and Game:isLight() then
-        return Utils.unpackColor(self.light_color)
+        return ColorUtils.unpackColor(self.light_color)
     else
         return super.getColor(self)
     end
@@ -437,9 +437,9 @@ end
 -- Dark Battle Colors
 function PartyMember:getAttackBarColor()
     if Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") == true and Game:isLight() then
-        return Utils.unpackColor(MG_PALETTE["light_world_dark_battle_color_attackbar"])
+        return ColorUtils.unpackColor(MG_PALETTE["light_world_dark_battle_color_attackbar"])
     elseif self.attack_bar_color_lw and Game:isLight() then
-        return Utils.unpackColor(self.attack_bar_color_lw)
+        return ColorUtils.unpackColor(self.attack_bar_color_lw)
     else
         return super.getAttackBarColor(self)
     end
@@ -447,9 +447,9 @@ end
 
 function PartyMember:getAttackBoxColor()
     if Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") == true and Game:isLight() then
-        return Utils.unpackColor(MG_PALETTE["light_world_dark_battle_color_attackbox"])
+        return ColorUtils.unpackColor(MG_PALETTE["light_world_dark_battle_color_attackbox"])
     elseif self.attack_box_color_lw and Game:isLight() then
-        return Utils.unpackColor(self.attack_box_color_lw)
+        return ColorUtils.unpackColor(self.attack_box_color_lw)
     else
         return super.getAttackBoxColor(self)
     end
@@ -457,9 +457,9 @@ end
 
 function PartyMember:getDamageColor()
     if Kristal.getLibConfig("magical-glass", "light_world_dark_battle_color_override") == true and Game:isLight() and #Game.battle.party == 1 then
-        return Utils.unpackColor(MG_PALETTE["light_world_dark_battle_color_damage_single"])
+        return ColorUtils.unpackColor(MG_PALETTE["light_world_dark_battle_color_damage_single"])
     elseif self.dmg_color_lw and Game:isLight() then
-        return Utils.unpackColor(self.dmg_color_lw)
+        return ColorUtils.unpackColor(self.dmg_color_lw)
     else
         return super.getDamageColor(self)
     end
@@ -467,7 +467,7 @@ end
 
 function PartyMember:getXActColor()
     if self.xact_color_lw and Game:isLight() then
-        return Utils.unpackColor(self.xact_color_lw)
+        return ColorUtils.unpackColor(self.xact_color_lw)
     else
         return super.getXActColor(self)
     end
@@ -476,11 +476,11 @@ end
 -- Light Battle Colors
 function PartyMember:getLightDamageColor()
     if Game.battle and not Game.battle.multi_mode then
-        return Utils.unpackColor(COLORS.red)
+        return ColorUtils.unpackColor(COLORS.red)
     elseif self.light_dmg_color_dw and not Game:isLight() then
-        return Utils.unpackColor(self.light_dmg_color_dw)
+        return ColorUtils.unpackColor(self.light_dmg_color_dw)
     elseif self.light_dmg_color and Game:isLight() then
-        return Utils.unpackColor(self.light_dmg_color)
+        return ColorUtils.unpackColor(self.light_dmg_color)
     else
         return self:getColor()
     end
@@ -488,11 +488,11 @@ end
 
 function PartyMember:getLightMissColor()
     if Game.battle and not Game.battle.multi_mode then
-        return Utils.unpackColor(COLORS.silver)
+        return ColorUtils.unpackColor(COLORS.silver)
     elseif self.light_miss_color_dw and not Game:isLight() then
-        return Utils.unpackColor(self.light_miss_color_dw)
+        return ColorUtils.unpackColor(self.light_miss_color_dw)
     elseif self.light_miss_color and Game:isLight() then
-        return Utils.unpackColor(self.light_miss_color)
+        return ColorUtils.unpackColor(self.light_miss_color)
     else
         return self:getColor()
     end
@@ -500,11 +500,11 @@ end
 
 function PartyMember:getLightAttackColor()
     if Game.battle and not Game.battle.multi_mode then
-        return Utils.unpackColor({1, 105/255, 105/255})
+        return ColorUtils.unpackColor({1, 105/255, 105/255})
     elseif self.light_attack_color_dw and not Game:isLight() then
-        return Utils.unpackColor(self.light_attack_color_dw)
+        return ColorUtils.unpackColor(self.light_attack_color_dw)
     elseif self.light_attack_color and Game:isLight() then
-        return Utils.unpackColor(self.light_attack_color)
+        return ColorUtils.unpackColor(self.light_attack_color)
     else
         return self:getColor()
     end
@@ -512,11 +512,11 @@ end
 
 function PartyMember:getLightMultiboltAttackColor()
     if Game.battle and not Game.battle.multi_mode then
-        return Utils.unpackColor(COLORS.white)
+        return ColorUtils.unpackColor(COLORS.white)
     elseif self.light_multibolt_attack_color_dw and not Game:isLight() then
-        return Utils.unpackColor(self.light_multibolt_attack_color_dw)
+        return ColorUtils.unpackColor(self.light_multibolt_attack_color_dw)
     elseif self.light_multibolt_attack_color and Game:isLight() then
-        return Utils.unpackColor(self.light_multibolt_attack_color)
+        return ColorUtils.unpackColor(self.light_multibolt_attack_color)
     else
         return self:getColor()
     end
@@ -524,11 +524,11 @@ end
 
 function PartyMember:getLightAttackBarColor()
     if Game.battle and not Game.battle.multi_mode then
-        return Utils.unpackColor(COLORS.white)
+        return ColorUtils.unpackColor(COLORS.white)
     elseif self.light_attack_bar_color_dw and not Game:isLight() then
-        return Utils.unpackColor(self.light_attack_bar_color_dw)
+        return ColorUtils.unpackColor(self.light_attack_bar_color_dw)
     elseif self.light_attack_bar_color and Game:isLight() then
-        return Utils.unpackColor(self.light_attack_bar_color)
+        return ColorUtils.unpackColor(self.light_attack_bar_color)
     else
         return self:getColor()
     end
@@ -536,9 +536,9 @@ end
 
 function PartyMember:getLightXActColor()
     if self.light_xact_color_dw and not Game:isLight() then
-        return Utils.unpackColor(self.light_xact_color_dw)
+        return ColorUtils.unpackColor(self.light_xact_color_dw)
     elseif self.light_xact_color and Game:isLight() then
-        return Utils.unpackColor(self.light_xact_color)
+        return ColorUtils.unpackColor(self.light_xact_color)
     else
         return self:getXActColor()
     end

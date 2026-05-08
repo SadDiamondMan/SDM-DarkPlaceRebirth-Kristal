@@ -42,7 +42,7 @@ function item:init()
     self.light_multibolt_variance = {{0, 25, 50}, {100, 125, 150}}
     
     self.bolt_count = 3
-    self.multibolt_variance = {{50, 75}}
+    self.multibolt_variance = {{40, 60}}
 
     self.attack_sound = "punchstrong"
     
@@ -95,9 +95,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
     if crit then
         if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-            sprite:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
+            sprite:setColor(TableUtils.lerp(COLORS.white, COLORS.yellow, 0.5))
         else
-            sprite:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+            sprite:setColor(TableUtils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
         end
         Assets.stopAndPlaySound("saber3")
     end

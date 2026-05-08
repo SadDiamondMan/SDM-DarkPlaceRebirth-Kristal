@@ -47,10 +47,10 @@ function item:init()
     self.light_bolt_miss_threshold = 2
     self.light_bolt_direction = "left"
     self.light_multibolt_variance = {{0, 25, 50}}
-    self.inv_bonus = 15/30
+    self.inv_bonus = 15 / 30
     
     self.bolt_count = 2
-    self.multibolt_variance = {{50, 75}}
+    self.multibolt_variance = {{40, 60}}
 
     self.attack_sound = "bookspin"
     self.attack_pitch = 0.9
@@ -80,9 +80,9 @@ function item:onLightAttack(battler, enemy, damage, stretch, crit)
 
     if crit then
         if Utils.equal({battler.chara:getLightMultiboltAttackColor()}, COLORS.white) then
-            sprite:setColor(ColorUtils.mergeColor(COLORS.white, COLORS.yellow, 0.5))
+            sprite:setColor(TableUtils.lerp(COLORS.white, COLORS.yellow, 0.5))
         else
-            sprite:setColor(ColorUtils.mergeColor({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
+            sprite:setColor(TableUtils.lerp({battler.chara:getLightMultiboltAttackColor()}, COLORS.white, 0.5))
         end
     end
     
