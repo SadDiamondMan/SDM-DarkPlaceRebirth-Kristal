@@ -218,19 +218,16 @@ return {
     end,
 
     hospitalpiano = function(cutscene, event)
-
         cutscene:text("* (It's an obligatory hospital piano,[wait:5] shrunk to fit in the corner.)")
         cutscene:text("* (As a result,[wait:5] it's missing most of the good keys.)")
         cutscene:text("* (Play it?)")
         local opinion = cutscene:choicer({"Yes", "No"})
-            if opinion == 1 then
-                Assets.playSound("pianonoise")
-                cutscene:text("* (Plink...)")
-            else
-                cutscene:text("* (Your hands linger over the keys doing nothing.)")
-                
-            end
-        
+        if opinion == 1 then
+            Assets.playSound("pianonoise")
+            cutscene:text("* (Plink...)")
+        else
+            cutscene:text("* (Your hands linger over the keys doing nothing.)")
+        end
     end,
 
     pre_knight_corner = function (cutscene, event)
@@ -246,22 +243,19 @@ return {
     end,
 
     hospitaltoy = function(cutscene, event)
-
         cutscene:text("* (It's a toy with beads on a track.)")
         if Game:getFlag("POST_SNOWGRAVE") then
             cutscene:text("* (One of the blue beads is broken and torn off.)")
         else
             cutscene:text("* (The beads of the toy march on.)")
         end
-        
     end,
 
     asgorefridge = function(cutscene, event)
-        
         cutscene:text("* (It's a rusty fridge with some photos on it.)")
         local opinion = cutscene:choicer({"\nOpen\nFridge\n", "Don't", "See photos"})
         if opinion == 1 then
-          cutscene:text("* (All that's inside is a jar with a single pickle in it...)")
+            cutscene:text("* (All that's inside is a jar with a single pickle in it...)")
         elseif opinion == 3 then
             local characters_who_knows_dreemurr = {
                 "susie",
@@ -279,11 +273,11 @@ return {
             else
                 cutscene:text("* (A photo of two goat monsters on their wedding day.)")
             end
-          cutscene:text("* (She's holding a bouquet of seven flowers.)")
-          cutscene:text("* (A reindeer-looking monster stands nearby in a tuxedo.)")
-          cutscene:text("* (They all look happy.)")
+            cutscene:text("* (She's holding a bouquet of seven flowers.)")
+            cutscene:text("* (A reindeer-looking monster stands nearby in a tuxedo.)")
+            cutscene:text("* (They all look happy.)")
         else
-          cutscene:text("* (You decide not to look.)")  
+            cutscene:text("* (You decide not to look.)")
         end
     end,
 
@@ -324,13 +318,12 @@ return {
     end,
 
     librarybook1 = function(cutscene, event)
-
-      cutscene:text("* How To Care For A Human")
-      cutscene:text("* (It's a book for monsters about how to care for humans.)")
-      local opinion = cutscene:choicer({"Look in\nthe back", "Look inside"})
+      	cutscene:text("* How To Care For A Human")
+      	cutscene:text("* (It's a book for monsters about how to care for humans.)")
+      	local opinion = cutscene:choicer({"Look in\nthe back", "Look inside"})
         if opinion == 1 then
-          cutscene:text("* (According to the card in the back...)")
-          cutscene:text("* (... looks like your mother took it repeatedly many years ago.)")
+          	cutscene:text("* (According to the card in the back...)")
+          	cutscene:text("* (... looks like your mother took it repeatedly many years ago.)")
         else
             cutscene:text("* (There are photos of unfamiliar humans inside.)")
             local leader_id = GeneralUtils:getLeader().id
@@ -338,69 +331,79 @@ return {
                 cutscene:text("* (You shut the book quickly.)")
             end
         end
-
     end,
 
     librarybook2 = function(cutscene, event)
-
-      cutscene:text("* (It's BOOK 1 about SOULS. Read it?)")
-      local opinion = cutscene:choicer({"Read", "Don't"})
+      	cutscene:text("* (It's BOOK 1 about SOULS. Read it?)")
+      	local opinion = cutscene:choicer({"Read", "Don't"})
         if opinion == 1 then
-          cutscene:text("* The SOUL has been called many things.")
-          cutscene:text("* The font of our compassion. The source of our will.")
-          cutscene:text("* The container of our \"life force.\"")
-          cutscene:text("* But even now,[wait:5] the true function of it is unknown.")
+          	cutscene:text("* The SOUL has been called many things.")
+          	cutscene:text("* The font of our compassion. The source of our will.")
+          	cutscene:text("* The container of our \"life force.\"")
+          	cutscene:text("* But even now,[wait:5] the true function of it is unknown.")
         end
+    end,
 
+	librarybook3 = function(cutscene, event)
+      	cutscene:text("* (It's a book about Monster Funerals. Read it?)")
+      	local opinion = cutscene:choicer({"Read", "Do not"})
+        if opinion == 1 then
+          	cutscene:text("* ...[wait:5] When monsters die,[wait:5] their dust will be spread over what they loved.")
+          	cutscene:text("* An object that symbolizes their existence. That object will be buried...")
+          	cutscene:text("* And in such a way,[wait:5] their soul be able to rest,[wait:5] within that object,[wait:5] and the earth.")
+          	cutscene:text("* Of course,[wait:5] everyone knows that. That's why this is the introduction...")
+        end
     end,
 
     papyrushouse = function(cutscene, event)
-
-      Assets.playSound("knock")
-      cutscene:text("* (Knock knock knock...)")
-      cutscene:text("* (...)")
-      cutscene:text("* (No response...)\n[wait:5]* (... not even the distant trousle of bones.)")
-
+        if Game:getFlag("hometown_time") == "night" then
+            cutscene:text("* (...[wait:5] it's quiet inside. Peek in?)")
+            local choice = cutscene:choicer({"Yes", "No"})
+            if choice == 1 then
+                cutscene:text("* (Zig zag rug...[wait:5] flatscreen TV...[wait:5] regular-looking kitchen...)")
+                cutscene:text("* (...[wait:5] it's a bit messy,[wait:5] but nothing special.)")
+            end
+        else
+            Assets.playSound("knock")
+            cutscene:text("* (Knock knock knock.)")
+            cutscene:text("* (You hear nary a bone...[wait:5] No rattle,[wait:5] nor trousle,[wait:5] nor xylophone tickle.)")
+        end
     end,
 
     sansplin = function(cutscene, event)
-
-      Assets.playSound("bell")
-
+        Assets.playSound("bell")
     end,
 
     iceesoda = function(cutscene, event)
-
-      cutscene:text("* (It's a soda-dispensing machine.)")
-      local opinion = cutscene:choicer({"Inspect", "Not"})
+        cutscene:text("* (It's a soda-dispensing machine.)")
+        local opinion = cutscene:choicer({"Inspect", "Not"})
         if opinion == 1 then
-          cutscene:text("* (You took a look at the flavors.)")
-          cutscene:text("* WATER")
-          cutscene:text("* ICE")
-          cutscene:text("* DOUBLE-ICE")
-          cutscene:text("* BREAD")
-          cutscene:text("* FLAMIN HOT CHEESE SODA")
-          cutscene:text("* GAMER BLOOD ENERGY DRINK")
-          cutscene:text("* Juice (Red Flavor)")
+            cutscene:text("* (You took a look at the flavors.)")
+            cutscene:text("* WATER")
+            cutscene:text("* ICE")
+            cutscene:text("* DOUBLE-ICE")
+            cutscene:text("* BREAD")
+            cutscene:text("* FLAMIN HOT CHEESE SODA")
+            cutscene:text("* GAMER BLOOD ENERGY DRINK")
+            cutscene:text("* Juice (Red Flavor)")
         end
-
     end,
-	
+
     toilet = function(cutscene, event)
         cutscene:text("* (It's a toilet.)[wait:5]\n* (Flush it?)")
         local choice = cutscene:choicer({"Yes", "No"})
         if choice == 1 then
-            Game.world.music:fade(0,0.001)
+            Game.world.music:fade(0, 0.001)
             Assets.playSound("toilet")
-			
+
             cutscene:wait(1)
-			
+
             Assets.playSound("won")
             cutscene:text("* (You flushed the toilet!)")
-            Game.world.music:fade(1,1)
+            Game.world.music:fade(1, 1)
         end
     end,
-	
+
     asriel_bed = function(cutscene, event)
         if Game.party[1].id == "YOU" then
             cutscene:text("* It looks like one of the beds from the inn you were staying at.")
